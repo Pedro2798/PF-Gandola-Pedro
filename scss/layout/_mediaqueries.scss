@@ -1,0 +1,61 @@
+//FOOTER//
+
+@media (max-width: 900px){
+    .footertabla{
+        text-align: center;
+        padding: 20px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 900px){
+    .footer a{
+        display: none;
+    }
+}
+
+//MAIN INDEX//
+
+@media (max-width: 550px){
+    .bustoindex1{
+        height: 600px;
+    }
+} 
+
+@media (max-width: 550px){
+    .img-index{
+        height: 600px;
+        object-fit: cover;
+    }
+} 
+
+@media (max-width: 550px){
+    .texto-carrousel{
+        font-size: 22px;
+    }
+} 
+
+@media (max-width: 550px){
+    .img-carousel{
+        height: 600px;
+    }
+} 
+
+//PELICULAS//
+
+@media (max-width: 550px){
+    .card-peliculas-iframe iframe{
+        width: 480px;
+        height: 290px;
+    }
+}
+
+
+//BIOGRAFIA//
+
+@media (max-width: 700px){
+    .card-biografia-iframe iframe{
+        width: 430px;
+        height: 220px;
+    }
+}

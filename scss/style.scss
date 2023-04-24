@@ -1,0 +1,22 @@
+// BASE//
+
+@import "base/reset.scss";
+
+//COMPONENTS//
+
+//COMPONENTS
+
+@import "components/navbar";
+@import "components/footer";
+
+//layout
+
+@import "layout/biografia.scss";
+@import "layout/estilos";
+@import "layout/peliculas";
+@import "layout/index";
+@import "layout/series";
+
+//MEDIAQUERIES
+
+@import "layout/mediaqueries";
