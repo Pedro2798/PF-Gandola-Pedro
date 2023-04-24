@@ -1,3 +1,12 @@
+//NAVBAR//
+
+@media (max-width: 380px){
+    .navbar-brand{
+        font-size: 20px;
+        align-items: center;
+    }
+}
+
 //FOOTER//
 
 @media (max-width: 900px){
@@ -7,6 +16,14 @@
         justify-content: center;
     }
 }
+
+@media (min-width:280px) and (max-width: 320px){
+    .text-footer{
+        display: none;
+        
+    }
+}
+
 
 @media (max-width: 900px){
     .footer a{

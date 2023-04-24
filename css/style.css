@@ -22,6 +22,11 @@
   border-style: solid;
 }
 
+@media (max-width: 380px) {
+  .btn-hamburguesa {
+    size: 40px;
+  }
+}
 .nav-bar a {
   padding: 20px;
   text-align: center;
@@ -256,6 +261,18 @@ link {
   gap: 15px;
 }
 
+.card-estilos-row1 h2 {
+  font-size: 32px;
+}
+
+.card-estilos-row1 h1 {
+  font-size: 32px;
+}
+
+.card-estilos-row1 h3 {
+  font-size: 32px;
+}
+
 .card-peliculas-row1 {
   display: flex;
   flex-direction: column;
@@ -265,6 +282,14 @@ link {
   font-size: 18px;
   padding: 20px;
   gap: 30px;
+}
+
+.card-peliculas-row1 h1 {
+  font-size: 32px;
+}
+
+.card-peliculas-row1 h2 {
+  font-size: 32px;
 }
 
 .card-peliculas-iframe {
@@ -384,11 +409,26 @@ link {
   border-style: solid;
 }
 
+.card-peliculas-row1 h3 {
+  font-size: 32px;
+}
+
+@media (max-width: 380px) {
+  .navbar-brand {
+    font-size: 20px;
+    align-items: center;
+  }
+}
 @media (max-width: 900px) {
   .footertabla {
     text-align: center;
     padding: 20px;
     justify-content: center;
+  }
+}
+@media (min-width: 280px) and (max-width: 320px) {
+  .text-footer {
+    display: none;
   }
 }
 @media (max-width: 900px) {
