@@ -7,15 +7,17 @@
     font-size: 18px;
     padding: 20px;
     gap: 30px;
+
+    h1{
+        font-size: 32px;
+    }
+    
+    h2{
+        font-size: 32px;
+    }
 }
 
-.card-peliculas-row1 h1{
-    font-size: 32px;
-}
 
-.card-peliculas-row1 h2{
-    font-size: 32px;
-}
 
 .card-peliculas-iframe{
     display: flex;
@@ -24,12 +26,12 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
-}
 
-.iframe-peliculas-series{
-    border: 2px;
-    border-color: black;
-    border-style: solid;
+    iframe{
+        border: 2px;
+        border-color: black;
+        border-style: solid;
+    }
 }
 
 

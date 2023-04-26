@@ -2,44 +2,42 @@
     border: 2px;
     border-color: black;
     border-style: solid;
-}
 
-.nav-bar{
-    display: flex;
-    justify-content: space-between;
-    background-color: rgb(242, 244, 247);
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-    font-size: 24px;
-    text-decoration: none;
-    border: 2px; 
-    border-color: black;
-    border-style: solid;
-}
-
-@media (max-width: 380px){
-    .btn-hamburguesa{
-        size: 40px;
+    nav{
+        display: flex;
+        justify-content: space-between;
+        background-color: rgb(242, 244, 247);
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        font-size: 24px;
+        text-decoration: none;
+        border: 2px; 
+        border-color: black;
+        border-style: solid;
+    
+        a{
+            padding: 20px;
+            text-align: center;
+            text-decoration: none; 
+        }
     }
 }
 
-.nav-bar a{
-    padding: 20px;
-    text-align: center;
-    text-decoration: none; 
-}
+
 
 .nav-list{
     text-align: right;
+
+    li {
+        display:inline-block;
+        margin: 20px;
+        padding: 10px;
+        text-decoration: none;
+        text-align: right;
+    }
+    
 }
 
-.nav-list li {
-    display:inline-block;
-    margin: 20px;
-    padding: 10px;
-    text-decoration: none;
-    text-align: right;
-}
 
 .nav-link{
     color: black;

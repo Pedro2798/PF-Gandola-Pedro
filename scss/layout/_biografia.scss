@@ -17,20 +17,15 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
-}
 
-@media (max-width: 550px){
-    .card-biografia-iframe iframe{
-        width: 480px;
-        height: 290px;
+    iframe{
+        border: 2px;
+        border-color: black;
+        border-style: solid;
     }
 }
 
-.iframe-biografia{
-    border: 2px;
-    border-color: black;
-    border-style: solid;
-}
+
 
 .imagen-biografia-row2{
     display: flex;
@@ -39,20 +34,20 @@
     align-items: center;
     justify-content: center;
     padding: 50px;
+
+    img{
+        display: flex;
+        width: 100%;
+        object-fit: cover;
+        align-items: center;
+        justify-content: center;
+        border: 2px;
+        border-color: black;
+        border-style: solid;
+    
+    }
 }
 
-
-.img-biografia-row2{
-    display: flex;
-    width: 100%;
-    object-fit: cover;
-    align-items: center;
-    justify-content: center;
-    border: 2px;
-    border-color: black;
-    border-style: solid;
-
-}
 
 .card-biografia-iframe{
     display: flex;

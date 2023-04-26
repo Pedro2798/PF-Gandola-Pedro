@@ -8,8 +8,7 @@
   border-color: black;
   border-style: solid;
 }
-
-.nav-bar {
+.header-border nav {
   display: flex;
   justify-content: space-between;
   background-color: rgb(242, 244, 247);
@@ -21,13 +20,7 @@
   border-color: black;
   border-style: solid;
 }
-
-@media (max-width: 380px) {
-  .btn-hamburguesa {
-    size: 40px;
-  }
-}
-.nav-bar a {
+.header-border nav a {
   padding: 20px;
   text-align: center;
   text-decoration: none;
@@ -36,7 +29,6 @@
 .nav-list {
   text-align: right;
 }
-
 .nav-list li {
   display: inline-block;
   margin: 20px;
@@ -103,6 +95,12 @@ h1 {
   padding: 25px;
   background-color: rgb(242, 244, 247);
 }
+.footer a {
+  text-decoration: none;
+  color: black;
+  font-size: 34px;
+  padding: 50px;
+}
 
 .footertabla {
   padding: 25px;
@@ -111,11 +109,9 @@ h1 {
   flex-direction: column;
   text-align: right;
 }
-
 .footertabla h1 {
   text-align: center;
 }
-
 .footertabla form {
   padding: 5px;
 }
@@ -125,8 +121,7 @@ h1 {
   justify-content: space-around;
   background-color: rgb(242, 244, 247);
 }
-
-.footnav-link {
+.nav-footer ul {
   color: black;
   text-decoration: none;
   padding: 20px;
@@ -135,26 +130,17 @@ h1 {
   font-weight: 300;
   font-size: 20px;
 }
-
-.footnav-link a {
+.nav-footer ul li {
+  padding: 8px;
+  align-items: center;
+  text-align: center;
+}
+.nav-footer ul li a {
   text-decoration: none;
   color: black;
   padding: 30px;
   justify-content: center;
   gap: 20px;
-}
-
-.footnav-link li {
-  padding: 8px;
-  align-items: center;
-  text-align: center;
-}
-
-.footer a {
-  text-decoration: none;
-  color: black;
-  font-size: 34px;
-  padding: 50px;
 }
 
 ul {
@@ -184,14 +170,7 @@ link {
   align-items: center;
   padding: 20px;
 }
-
-@media (max-width: 550px) {
-  .card-biografia-iframe iframe {
-    width: 480px;
-    height: 290px;
-  }
-}
-.iframe-biografia {
+.card-biografia-iframe iframe {
   border: 2px;
   border-color: black;
   border-style: solid;
@@ -205,8 +184,7 @@ link {
   justify-content: center;
   padding: 50px;
 }
-
-.img-biografia-row2 {
+.imagen-biografia-row2 img {
   display: flex;
   width: 100%;
   object-fit: cover;
@@ -260,15 +238,12 @@ link {
   padding: 20px;
   gap: 15px;
 }
-
 .card-estilos-row1 h2 {
   font-size: 32px;
 }
-
 .card-estilos-row1 h1 {
   font-size: 32px;
 }
-
 .card-estilos-row1 h3 {
   font-size: 32px;
 }
@@ -283,11 +258,9 @@ link {
   padding: 20px;
   gap: 30px;
 }
-
 .card-peliculas-row1 h1 {
   font-size: 32px;
 }
-
 .card-peliculas-row1 h2 {
   font-size: 32px;
 }
@@ -300,8 +273,7 @@ link {
   align-items: center;
   padding: 20px;
 }
-
-.iframe-peliculas-series {
+.card-peliculas-iframe iframe {
   border: 2px;
   border-color: black;
   border-style: solid;
@@ -467,6 +439,12 @@ link {
   .card-biografia-iframe iframe {
     width: 430px;
     height: 220px;
+  }
+}
+@media (max-width: 550px) {
+  .card-biografia-iframe iframe {
+    width: 480px;
+    height: 290px;
   }
 }
 

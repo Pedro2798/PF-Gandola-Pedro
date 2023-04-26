@@ -8,7 +8,7 @@
 }
 
 //FOOTER//
-
+ 
 @media (max-width: 900px){
     .footertabla{
         text-align: center;
@@ -19,8 +19,7 @@
 
 @media (min-width:280px) and (max-width: 320px){
     .text-footer{
-        display: none;
-        
+        display: none; 
     }
 }
 
@@ -74,5 +73,12 @@
     .card-biografia-iframe iframe{
         width: 430px;
         height: 220px;
+    }
+}
+
+@media (max-width: 550px){
+    .card-biografia-iframe iframe{
+        width: 480px;
+        height: 290px;
     }
 }
