@@ -7,10 +7,7 @@
   <meta name="description" content="PGAN Studio: soluciones con Inteligencia Artificial para negocios reales. Asistentes virtuales, control de datos, ventas y automatización. pganstudio.com">
   <link rel="canonical" href="https://pganstudio.com/">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/landing.css">
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 </head>
@@ -55,30 +52,39 @@
   <main>
     <!-- ===== HERO ===== -->
     <section class="hero" id="hero">
-      <p class="hero__eyebrow"><span class="dot"></span> Disponible para nuevos proyectos</p>
-      <h1 class="hero__title">
-        <span class="hero__line">Construyo soluciones con <span class="ia-accent">IA</span></span>
-        <span class="hero__line">para tu</span>
-        <span class="hero__line biz-carousel" id="bizCarousel" aria-live="polite">
-          <span class="cw"><span class="cw__gray">Negocio</span><span class="cw__color" aria-hidden="true">Negocio</span></span>
-        </span>
-      </h1>
-      <p class="hero__subtitle">
-        Soy <strong>Pedro Gandola</strong>. Ayudo a negocios como el tuyo a atender mejor,
-        vender más y tener sus datos bajo control usando Inteligencia Artificial — sin que
-        necesites saber nada de tecnología.
-      </p>
-      <div class="hero__cta">
-        <a class="btn btn--primary" href="#projects">Ver proyectos</a>
-        <a class="btn btn--ghost" href="https://linkedin.com/in/pedro-gandola" target="_blank" rel="noopener">LinkedIn ↗</a>
-      </div>
-      <div class="hero__stack" aria-label="Tipos de soluciones">
-        <span class="chip">Asistentes virtuales</span>
-        <span class="chip">WhatsApp automático</span>
-        <span class="chip">Documentos con respuestas</span>
-        <span class="chip">Ventas y clientes</span>
-        <span class="chip">Búsqueda por foto</span>
-        <span class="chip">Tus datos, ordenados</span>
+      <div class="hero__panel">
+        <video class="hero__video" autoplay muted loop playsinline aria-hidden="true">
+          <source src="assets/hero-loop.webm" type="video/webm">
+          <source src="assets/hero-loop.mp4" type="video/mp4">
+        </video>
+        <div class="hero__overlay" aria-hidden="true"></div>
+        <div class="hero__content">
+          <p class="hero__eyebrow"><span class="dot"></span> Disponible para nuevos proyectos</p>
+          <h1 class="hero__title">
+            <span class="hero__line">Soluciones <span class="ia-accent">IA</span></span>
+            <span class="hero__line hero__line--serif">para tu</span>
+            <span class="hero__line biz-carousel" id="bizCarousel" aria-live="polite">
+              <span class="cw"><span class="cw__gray">Negocio</span><span class="cw__color" aria-hidden="true">Negocio</span></span>
+            </span>
+          </h1>
+          <p class="hero__subtitle">
+            Soy <strong>Pedro Gandola</strong>. Webs, sistemas y automatizaciones con la IA como
+            protagonista: para que atiendas mejor, vendas más y tengas tus datos bajo control —
+            sin que necesites saber nada de tecnología.
+          </p>
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="#projects">Ver proyectos</a>
+            <a class="btn btn--ghost" href="https://linkedin.com/in/pedro-gandola" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
+          <div class="hero__stack" aria-label="Tipos de soluciones">
+            <span class="chip">Asistentes virtuales</span>
+            <span class="chip">WhatsApp automático</span>
+            <span class="chip">Documentos con respuestas</span>
+            <span class="chip">Ventas y clientes</span>
+            <span class="chip">Búsqueda por foto</span>
+            <span class="chip">Tus datos, ordenados</span>
+          </div>
+        </div>
       </div>
     </section>
 

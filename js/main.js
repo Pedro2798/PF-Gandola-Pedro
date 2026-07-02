@@ -22,8 +22,12 @@
   /* ---------- Año del footer ---------- */
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  /* ---------- Animaciones GSAP ---------- */
+  /* ---------- Video de fondo del hero ---------- */
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var heroVideo = document.querySelector(".hero__video");
+  if (heroVideo && reduceMotion) heroVideo.pause();
+
+  /* ---------- Animaciones GSAP ---------- */
   if (reduceMotion || typeof gsap === "undefined") return;
 
   gsap.registerPlugin(ScrollTrigger);
@@ -65,6 +69,12 @@
   var LEN = words.length;
   var SIDE_SCALE = 0.4;
 
+  // La sombra de la palabra central va por CSS (text-shadow en .cw--center,
+  // sigue la forma de las letras); aquí solo se maneja el desenfoque.
+  var POP_SHADOW = "blur(0px)";
+  var SIDE_BLUR = "blur(2px)";
+  var HIDDEN_BLUR = "blur(4px)";
+
   function layoutCarousel(animate) {
     // Separación calculada con el ancho real de cada palabra para que
     // las laterales nunca queden tapadas por la central.
@@ -76,28 +86,40 @@
       var t;
       var sideHalf = (el.offsetWidth * SIDE_SCALE) / 2;
       if (pos === 0) {
-        // Centro: grande, nítida y a todo color
-        t = { x: 0, scale: 1, opacity: 1, filter: "blur(0px)", zIndex: 3 };
+        // Centro: grande, nítida, a todo color y por delante
+        t = { x: 0, z: 0, rotationY: 0, scale: 1, opacity: 1, filter: POP_SHADOW, zIndex: 3 };
       } else if (pos === 1) {
-        // La que viene, a la derecha y "atrás"
-        t = { x: centerHalf + gap + sideHalf, scale: SIDE_SCALE, opacity: 0.5, filter: "blur(1.5px)", zIndex: 2 };
+        // La que viene: derecha, girada y hundida hacia atrás
+        t = { x: centerHalf + gap + sideHalf, z: -220, rotationY: -32, scale: SIDE_SCALE, opacity: 0.5, filter: SIDE_BLUR, zIndex: 2 };
       } else if (pos === LEN - 1) {
-        // La anterior, a la izquierda y "atrás"
-        t = { x: -(centerHalf + gap + sideHalf), scale: SIDE_SCALE, opacity: 0.5, filter: "blur(1.5px)", zIndex: 2 };
+        // La anterior: izquierda, girada y hundida hacia atrás
+        t = { x: -(centerHalf + gap + sideHalf), z: -220, rotationY: 32, scale: SIDE_SCALE, opacity: 0.5, filter: SIDE_BLUR, zIndex: 2 };
       } else {
         // El resto espera oculto, del lado por el que va a entrar
         var side = pos <= LEN / 2 ? 1 : -1;
-        t = { x: side * farOffset, scale: 0.3, opacity: 0, filter: "blur(3px)", zIndex: 1 };
+        t = { x: side * farOffset, z: -420, rotationY: side * -45, scale: 0.3, opacity: 0, filter: HIDDEN_BLUR, zIndex: 1 };
       }
       t.xPercent = -50;
       t.yPercent = -50;
+      t.transformPerspective = 900;
+      el.classList.toggle("cw--center", pos === 0);
       // El color "se llena" de izquierda a derecha al llegar al centro
       var clip = pos === 0 ? "inset(0% 0% 0% 0%)" : "inset(0% 100% 0% 0%)";
       var colorEl = el.lastChild;
       if (animate) {
-        gsap.to(el, Object.assign({ duration: 0.9, ease: "power3.inOut" }, t));
-        gsap.to(colorEl, { clipPath: clip, duration: 0.9, ease: "power2.inOut" });
+        var scaleTarget = t.scale;
+        delete t.scale;
+        gsap.to(el, Object.assign({ duration: 1.15, ease: "expo.inOut" }, t));
+        // La escala va aparte: la palabra que llega al centro "revienta"
+        // un poco más grande y asienta (back.out), refuerza el 3D.
+        gsap.to(el, {
+          scale: scaleTarget,
+          duration: 1.15,
+          ease: pos === 0 ? "back.out(1.7)" : "expo.inOut"
+        });
+        gsap.to(colorEl, { clipPath: clip, duration: 1.15, ease: "power2.inOut" });
       } else {
+        t.scale = t.scale !== undefined ? t.scale : 1;
         gsap.set(el, t);
         gsap.set(colorEl, { clipPath: clip });
       }
@@ -110,17 +132,18 @@
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(function () { layoutCarousel(false); });
   }
-  gsap.delayedCall(2.6, function step() {
+  gsap.delayedCall(2.8, function step() {
     current = (current + 1) % LEN;
     layoutCarousel(true);
-    gsap.delayedCall(2.3, step);
+    gsap.delayedCall(2.6, step);
   });
 
   // Entrada del hero
   var intro = gsap.timeline({ defaults: { ease: "power3.out" } });
   intro
     .from(".nav", { y: -60, opacity: 0, duration: 0.7 })
-    .from(".hero__eyebrow", { y: 24, opacity: 0, duration: 0.5 }, "-=0.3")
+    .from(".hero__panel", { y: 50, opacity: 0, scale: 0.97, duration: 0.9 }, "-=0.4")
+    .from(".hero__eyebrow", { y: 24, opacity: 0, duration: 0.5 }, "-=0.4")
     .from(".hero__line", { y: 60, opacity: 0, duration: 0.8, stagger: 0.12 }, "-=0.25")
     .from(".hero__subtitle", { y: 24, opacity: 0, duration: 0.6 }, "-=0.45")
     .from(".hero__cta .btn", { y: 20, opacity: 0, duration: 0.5, stagger: 0.1 }, "-=0.35")
