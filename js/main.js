@@ -28,6 +28,36 @@
 
   gsap.registerPlugin(ScrollTrigger);
 
+  /* Rotador de negocios en el hero */
+  var BUSINESSES = [
+    "Negocio",
+    "Veterinaria",
+    "Pastelería",
+    "Restaurante",
+    "Concesionario",
+    "Metalúrgica",
+    "Consultorio",
+    "Salón de Eventos",
+    "Inmobiliaria",
+    "Gimnasio",
+    "Estudio Contable"
+  ];
+  var rotWord = document.getElementById("rotWord");
+  var rotIndex = 0;
+
+  function rotateWord() {
+    rotIndex = (rotIndex + 1) % BUSINESSES.length;
+    var tl = gsap.timeline();
+    tl.to(rotWord, { yPercent: -70, opacity: 0, duration: 0.35, ease: "power2.in" })
+      .add(function () { rotWord.textContent = BUSINESSES[rotIndex]; })
+      .set(rotWord, { yPercent: 70 })
+      .to(rotWord, { yPercent: 0, opacity: 1, duration: 0.45, ease: "power3.out" });
+  }
+  gsap.delayedCall(2.4, function repeat() {
+    rotateWord();
+    gsap.delayedCall(2.2, repeat);
+  });
+
   // Entrada del hero
   var intro = gsap.timeline({ defaults: { ease: "power3.out" } });
   intro
