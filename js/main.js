@@ -28,7 +28,8 @@
 
   gsap.registerPlugin(ScrollTrigger);
 
-  /* Rotador de negocios en el hero */
+  /* Carrusel de negocios en el hero: la palabra central en color atardecer,
+     la anterior y la siguiente en gris a los costados, con profundidad. */
   var BUSINESSES = [
     "Negocio",
     "Veterinaria",
@@ -42,20 +43,77 @@
     "Gimnasio",
     "Estudio Contable"
   ];
-  var rotWord = document.getElementById("rotWord");
-  var rotIndex = 0;
+  var carousel = document.getElementById("bizCarousel");
+  carousel.innerHTML = "";
+  var words = BUSINESSES.map(function (text) {
+    var el = document.createElement("span");
+    el.className = "cw";
+    var gray = document.createElement("span");
+    gray.className = "cw__gray";
+    gray.textContent = text;
+    var color = document.createElement("span");
+    color.className = "cw__color";
+    color.setAttribute("aria-hidden", "true");
+    color.textContent = text;
+    el.appendChild(gray);
+    el.appendChild(color);
+    carousel.appendChild(el);
+    return el;
+  });
 
-  function rotateWord() {
-    rotIndex = (rotIndex + 1) % BUSINESSES.length;
-    var tl = gsap.timeline();
-    tl.to(rotWord, { yPercent: -70, opacity: 0, duration: 0.35, ease: "power2.in" })
-      .add(function () { rotWord.textContent = BUSINESSES[rotIndex]; })
-      .set(rotWord, { yPercent: 70 })
-      .to(rotWord, { yPercent: 0, opacity: 1, duration: 0.45, ease: "power3.out" });
+  var current = 0;
+  var LEN = words.length;
+  var SIDE_SCALE = 0.4;
+
+  function layoutCarousel(animate) {
+    // Separación calculada con el ancho real de cada palabra para que
+    // las laterales nunca queden tapadas por la central.
+    var gap = Math.max(28, carousel.offsetWidth * 0.035);
+    var centerHalf = words[current].offsetWidth / 2;
+    var farOffset = carousel.offsetWidth * 0.8;
+    words.forEach(function (el, i) {
+      var pos = (i - current + LEN) % LEN;
+      var t;
+      var sideHalf = (el.offsetWidth * SIDE_SCALE) / 2;
+      if (pos === 0) {
+        // Centro: grande, nítida y a todo color
+        t = { x: 0, scale: 1, opacity: 1, filter: "blur(0px)", zIndex: 3 };
+      } else if (pos === 1) {
+        // La que viene, a la derecha y "atrás"
+        t = { x: centerHalf + gap + sideHalf, scale: SIDE_SCALE, opacity: 0.5, filter: "blur(1.5px)", zIndex: 2 };
+      } else if (pos === LEN - 1) {
+        // La anterior, a la izquierda y "atrás"
+        t = { x: -(centerHalf + gap + sideHalf), scale: SIDE_SCALE, opacity: 0.5, filter: "blur(1.5px)", zIndex: 2 };
+      } else {
+        // El resto espera oculto, del lado por el que va a entrar
+        var side = pos <= LEN / 2 ? 1 : -1;
+        t = { x: side * farOffset, scale: 0.3, opacity: 0, filter: "blur(3px)", zIndex: 1 };
+      }
+      t.xPercent = -50;
+      t.yPercent = -50;
+      // El color "se llena" de izquierda a derecha al llegar al centro
+      var clip = pos === 0 ? "inset(0% 0% 0% 0%)" : "inset(0% 100% 0% 0%)";
+      var colorEl = el.lastChild;
+      if (animate) {
+        gsap.to(el, Object.assign({ duration: 0.9, ease: "power3.inOut" }, t));
+        gsap.to(colorEl, { clipPath: clip, duration: 0.9, ease: "power2.inOut" });
+      } else {
+        gsap.set(el, t);
+        gsap.set(colorEl, { clipPath: clip });
+      }
+    });
   }
-  gsap.delayedCall(2.4, function repeat() {
-    rotateWord();
-    gsap.delayedCall(2.2, repeat);
+
+  layoutCarousel(false);
+  window.addEventListener("resize", function () { layoutCarousel(false); });
+  // Recalcular cuando cargan las fuentes (cambian los anchos)
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () { layoutCarousel(false); });
+  }
+  gsap.delayedCall(2.6, function step() {
+    current = (current + 1) % LEN;
+    layoutCarousel(true);
+    gsap.delayedCall(2.3, step);
   });
 
   // Entrada del hero

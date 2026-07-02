@@ -34,6 +34,11 @@
   --blob-blue: rgba(37, 99, 235, 0.16);
   --blob-green: rgba(16, 185, 129, 0.14);
 
+  /* Atardecer: palabra del negocio en el hero */
+  --sunset-1: #f59e0b;
+  --sunset-2: #f97316;
+  --sunset-3: #ec4899;
+
   --radius: 18px;
   --font-display: "Sora", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
@@ -55,6 +60,11 @@
   --shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
   --blob-blue: rgba(59, 130, 246, 0.18);
   --blob-green: rgba(52, 211, 153, 0.12);
+
+  /* Atardecer más luminoso sobre fondo azul oscuro */
+  --sunset-1: #fcd34d;
+  --sunset-2: #fb923c;
+  --sunset-3: #f472b6;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -170,6 +180,7 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   text-align: center;
   padding: 7rem clamp(1rem, 5vw, 3rem) 4rem;
+  overflow: hidden; /* las palabras laterales del carrusel no deben generar scroll */
 }
 .hero__eyebrow {
   display: inline-flex;
@@ -201,23 +212,45 @@ a { color: inherit; text-decoration: none; }
   max-width: 900px;
 }
 .hero__line { display: block; }
-.rotator {
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: bottom;
-  padding-bottom: 0.08em; /* que no se corten descendentes (g, y, j) */
-}
-.rotator__word { display: inline-block; white-space: nowrap; }
-.hero__line--accent {
+
+/* Acento fijo azul→verde para "IA" */
+.ia-accent {
   background: linear-gradient(90deg, var(--blue-500), var(--green-400));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
-[data-theme="dark"] .hero__line--accent {
+[data-theme="dark"] .ia-accent {
   background: linear-gradient(90deg, var(--blue-400), var(--green-300));
   -webkit-background-clip: text;
   background-clip: text;
+}
+
+/* Carrusel de negocios: palabra central grande en color atardecer,
+   la anterior y la siguiente en gris, pequeñas y con profundidad. */
+.biz-carousel {
+  position: relative;
+  width: min(100%, 980px);
+  height: 1.4em;
+  margin-top: 0.1em;
+  font-size: 1.18em; /* un poco más grande que el resto del título */
+}
+.cw {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  will-change: transform, opacity, filter;
+}
+.cw__gray { color: var(--text-muted); opacity: 0.55; }
+.cw__color {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--sunset-1), var(--sunset-2), var(--sunset-3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 .hero__subtitle {
   max-width: 620px;
@@ -344,6 +377,7 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 720px) {
   .nav__links { display: none; }
   .nav__name { display: none; }
+  .biz-carousel { font-size: 1.05em; } /* que la palabra más larga entre en el ancho */
 }
 
 /* ---------- Accesibilidad ---------- */
