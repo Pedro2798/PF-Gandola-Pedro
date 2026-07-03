@@ -69,58 +69,62 @@
   var LEN = words.length;
   var SIDE_SCALE = 0.4;
 
-  // La sombra de la palabra central va por CSS (text-shadow en .cw--center,
-  // sigue la forma de las letras); aquí solo se maneja el desenfoque.
-  var POP_SHADOW = "blur(0px)";
-  var SIDE_BLUR = "blur(2px)";
-  var HIDDEN_BLUR = "blur(4px)";
-
+  // Rueda / engranaje: las palabras están apoyadas sobre el borde superior
+  // de un gran círculo invisible cuyo centro queda muy por debajo del texto.
+  // Al avanzar, la rueda entera gira: cada palabra recorre el arco,
+  // inclinándose tangencialmente como los dientes de un engranaje.
   function layoutCarousel(animate) {
-    // Separación calculada con el ancho real de cada palabra para que
-    // las laterales nunca queden tapadas por la central.
-    var gap = Math.max(28, carousel.offsetWidth * 0.035);
+    var wheelR = Math.max(carousel.offsetWidth * 1.5, 900);
+    var gap = Math.max(30, carousel.offsetWidth * 0.04);
     var centerHalf = words[current].offsetWidth / 2;
-    var farOffset = carousel.offsetWidth * 0.8;
     words.forEach(function (el, i) {
       var pos = (i - current + LEN) % LEN;
-      var t;
       var sideHalf = (el.offsetWidth * SIDE_SCALE) / 2;
+      // Separación angular: el arco necesario para que no se toquen
+      var sideAng = ((centerHalf + gap + sideHalf) / wheelR) * (180 / Math.PI);
+      var t;
       if (pos === 0) {
-        // Centro: grande, nítida, a todo color y por delante
-        t = { x: 0, z: 0, rotationY: 0, scale: 1, opacity: 1, filter: POP_SHADOW, zIndex: 3 };
+        t = { ang: 0, scale: 1, opacity: 1, blur: 0, z: 3 };
       } else if (pos === 1) {
-        // La que viene: derecha, girada y hundida hacia atrás
-        t = { x: centerHalf + gap + sideHalf, z: -220, rotationY: -32, scale: SIDE_SCALE, opacity: 0.5, filter: SIDE_BLUR, zIndex: 2 };
+        t = { ang: sideAng, scale: SIDE_SCALE, opacity: 0.5, blur: 2, z: 2 };
       } else if (pos === LEN - 1) {
-        // La anterior: izquierda, girada y hundida hacia atrás
-        t = { x: -(centerHalf + gap + sideHalf), z: -220, rotationY: 32, scale: SIDE_SCALE, opacity: 0.5, filter: SIDE_BLUR, zIndex: 2 };
+        t = { ang: -sideAng, scale: SIDE_SCALE, opacity: 0.5, blur: 2, z: 2 };
       } else {
-        // El resto espera oculto, del lado por el que va a entrar
         var side = pos <= LEN / 2 ? 1 : -1;
-        t = { x: side * farOffset, z: -420, rotationY: side * -45, scale: 0.3, opacity: 0, filter: HIDDEN_BLUR, zIndex: 1 };
+        t = { ang: side * sideAng * 2.2, scale: 0.3, opacity: 0, blur: 4, z: 1 };
       }
-      t.xPercent = -50;
-      t.yPercent = -50;
-      t.transformPerspective = 900;
       el.classList.toggle("cw--center", pos === 0);
       // El color "se llena" de izquierda a derecha al llegar al centro
       var clip = pos === 0 ? "inset(0% 0% 0% 0%)" : "inset(0% 100% 0% 0%)";
       var colorEl = el.lastChild;
-      if (animate) {
-        var scaleTarget = t.scale;
-        delete t.scale;
-        gsap.to(el, Object.assign({ duration: 1.15, ease: "expo.inOut" }, t));
-        // La escala va aparte: la palabra que llega al centro "revienta"
-        // un poco más grande y asienta (back.out), refuerza el 3D.
-        gsap.to(el, {
-          scale: scaleTarget,
-          duration: 1.15,
-          ease: pos === 0 ? "back.out(1.7)" : "expo.inOut"
+      var state = el._wheel || (el._wheel = { ang: t.ang });
+      var apply = function () {
+        var rad = (state.ang * Math.PI) / 180;
+        gsap.set(el, {
+          xPercent: -50,
+          yPercent: -50,
+          x: Math.sin(rad) * wheelR,
+          y: (1 - Math.cos(rad)) * wheelR,
+          rotation: state.ang,
+          zIndex: t.z
         });
-        gsap.to(colorEl, { clipPath: clip, duration: 1.15, ease: "power2.inOut" });
+      };
+      if (animate) {
+        // El ángulo se anima con onUpdate: la palabra sigue de verdad
+        // la trayectoria circular de la rueda, no una línea recta.
+        gsap.to(state, { ang: t.ang, duration: 1.2, ease: "power2.inOut", onUpdate: apply });
+        gsap.to(el, {
+          scale: t.scale,
+          opacity: t.opacity,
+          filter: "blur(" + t.blur + "px)",
+          duration: 1.2,
+          ease: pos === 0 ? "back.out(1.4)" : "power2.inOut"
+        });
+        gsap.to(colorEl, { clipPath: clip, duration: 1.2, ease: "power2.inOut" });
       } else {
-        t.scale = t.scale !== undefined ? t.scale : 1;
-        gsap.set(el, t);
+        state.ang = t.ang;
+        apply();
+        gsap.set(el, { scale: t.scale, opacity: t.opacity, filter: "blur(" + t.blur + "px)" });
         gsap.set(colorEl, { clipPath: clip });
       }
     });

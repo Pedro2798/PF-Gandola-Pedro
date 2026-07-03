@@ -40,9 +40,9 @@
   --sunset-3: #ec4899;
 
   --radius: 18px;
-  --font-display: "Syne", system-ui, sans-serif;
-  --font-serif: "Instrument Serif", Georgia, serif;
-  --font-body: "Space Grotesk", system-ui, sans-serif;
+  --font-display: "Poppins", system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
 }
 
 [data-theme="dark"] {
@@ -292,8 +292,8 @@ a { color: inherit; text-decoration: none; }
   width: min(100%, 980px);
   height: 1.4em;
   margin-top: 0.1em;
+  margin-bottom: 0.35em; /* aire para el arco descendente de la rueda */
   font-size: 1.18em; /* un poco más grande que el resto del título */
-  perspective: 900px; /* profundidad real para las palabras laterales */
 }
 .cw {
   position: absolute;
