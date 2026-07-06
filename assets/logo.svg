@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="PG Studio">
+  <defs>
+    <linearGradient id="lgBrand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2563eb"/>
+      <stop offset="1" stop-color="#10b981"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#lgBrand)"/>
+  <path d="M20 46V19h11.5a9.5 9.5 0 0 1 0 19H27v8h-7zm7-14h4.2a4.5 4.5 0 0 0 0-9H27v9z" fill="#ffffff"/>
+  <circle cx="45" cy="43" r="5" fill="#6ee7b7"/>
+</svg>
