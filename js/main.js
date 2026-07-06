@@ -86,9 +86,10 @@
       if (pos === 0) {
         t = { ang: 0, scale: 1, opacity: 1, blur: 0, z: 3 };
       } else if (pos === 1) {
-        t = { ang: sideAng, scale: SIDE_SCALE, opacity: 0.5, blur: 2, z: 2 };
+        // Invisible en reposo: solo se ve entrar/salir rodando en la transición
+        t = { ang: sideAng, scale: SIDE_SCALE, opacity: 0, blur: 2, z: 2 };
       } else if (pos === LEN - 1) {
-        t = { ang: -sideAng, scale: SIDE_SCALE, opacity: 0.5, blur: 2, z: 2 };
+        t = { ang: -sideAng, scale: SIDE_SCALE, opacity: 0, blur: 2, z: 2 };
       } else {
         var side = pos <= LEN / 2 ? 1 : -1;
         t = { ang: side * sideAng * 2.2, scale: 0.3, opacity: 0, blur: 4, z: 1 };

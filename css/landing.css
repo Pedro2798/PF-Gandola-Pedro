@@ -41,7 +41,6 @@
 
   --radius: 18px;
   --font-display: "Poppins", system-ui, sans-serif;
-  --font-serif: "Playfair Display", Georgia, serif;
   --font-body: "Inter", system-ui, sans-serif;
 }
 
@@ -262,14 +261,12 @@ a { color: inherit; text-decoration: none; }
   max-width: 900px;
 }
 .hero__line { display: block; }
-.hero__line--serif {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 0.72em;
+.hero__line--mid {
+  font-weight: 600;
+  font-size: 0.55em;
   letter-spacing: 0.01em;
   color: var(--text-muted);
-  margin-top: 0.1em;
+  margin-top: 0.15em;
 }
 
 /* Acento fijo azul→verde para "IA" */
